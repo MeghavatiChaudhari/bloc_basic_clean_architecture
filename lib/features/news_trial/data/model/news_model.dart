@@ -1,81 +1,17 @@
-// To parse this JSON data, do
-//
-//     final newsResponseModel = newsResponseModelFromJson(jsonString);
+import 'package:news_app/features/news_trial/data/model/article_model.dart';
+import 'package:news_app/features/news_trial/domain/entities/news_entity.dart';
 
-import 'dart:convert';
+class NewsModel extends NewsEntity {
+  @override
+  final List<ArticleModel> articles;
+  const NewsModel(
+      {required super.status,
+      required super.totalResults,
+      required this.articles})
+      : super(articles: articles);
 
-NewsResponseModel newsResponseModelFromJson(String str) =>
-    NewsResponseModel.fromJson(json.decode(str));
-
-String newsResponseModelToJson(NewsResponseModel data) =>
-    json.encode(data.toJson());
-
-class NewsResponseModel {
-  String status;
-  int totalResults;
-  List<Article> articles;
-
-  NewsResponseModel({
-    required this.status,
-    required this.totalResults,
-    required this.articles,
-  });
-
-  factory NewsResponseModel.fromJson(Map<String, dynamic> json) =>
-      NewsResponseModel(
-        status: json["status"],
-        totalResults: json["totalResults"],
-        articles: List<Article>.from(
-            json["articles"].map((x) => Article.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "status": status,
-        "totalResults": totalResults,
-        "articles": List<dynamic>.from(articles.map((x) => x.toJson())),
-      };
-}
-
-class Article {
-  Source source;
-  String? author;
-  String title;
-  String description;
-  String url;
-  String urlToImage;
-  String publishedAt;
-  String content;
-
-  Article({
-    required this.source,
-    required this.author,
-    required this.title,
-    required this.description,
-    required this.url,
-    required this.urlToImage,
-    required this.publishedAt,
-    required this.content,
-  });
-
-  factory Article.fromJson(Map<String, dynamic> json) => Article(
-        source: Source.fromJson(json["source"]),
-        author: json["author"],
-        title: json["title"],
-        description: json["description"],
-        url: json["url"],
-        urlToImage: json["urlToImage"],
-        publishedAt: json["publishedAt"],
-        content: json["content"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "source": source.toJson(),
-        "author": author,
-        "title": title,
-        "description": description,
-        "url": url,
-        "urlToImage": urlToImage,
-        "publishedAt": publishedAt,
-        "content": content,
-      };
+  factory NewsModel.fromJson(Map<String, dynamic> json) => NewsModel(
+      status: json['status'],
+      totalResults: json['totalResults'],
+      articles: json['articles']);
 }

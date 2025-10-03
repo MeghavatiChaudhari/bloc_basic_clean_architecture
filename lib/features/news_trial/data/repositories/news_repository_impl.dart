@@ -1,7 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:news_app/core/models/failure.dart';
-import 'package:news_app/features/news/data/models/article_model.dart';
-import 'package:news_app/features/news/domain/repositories/new_repository.dart';
 import 'package:news_app/features/news_trial/data/datasources/news_data_source.dart';
 import 'package:news_app/features/news_trial/domain/entities/news_entity.dart';
 import 'package:news_app/features/news_trial/domain/repositories/trial_news_repository.dart';

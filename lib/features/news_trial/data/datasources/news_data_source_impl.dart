@@ -2,13 +2,13 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:news_app/core/models/failure.dart';
 import 'package:news_app/features/news_trial/data/datasources/news_data_source.dart';
-import 'package:news_app/features/news_trial/data/model/news_response_model.dart';
+import 'package:news_app/features/news_trial/data/model/news_model.dart';
 import 'package:news_app/features/news_trial/domain/entities/news_entity.dart';
 
 class NewsDataSourceImpl extends NewsDataSource {
-  final Dio dio;
+  final dio = Dio();
   final String apiKey;
-  NewsDataSourceImpl({required this.dio, required this.apiKey});
+  NewsDataSourceImpl({required this.apiKey});
 
   @override
   Future<Either<Failure, NewsEntity>> getNews({String country = 'us'}) async {
@@ -22,9 +22,9 @@ class NewsDataSourceImpl extends NewsDataSource {
       );
 
       if (response.statusCode == 200) {
-        final newsResponseModel = NewsResponseModel.fromJson(response.data);
-        final newsEntity = NewsEntity(newsResponseModel);
-        return Right(newsEntity);
+        final newsModel = NewsModel.fromJson(response.data);
+
+        return Right(newsModel);
       } else {
         return Left(Failure(
             message: 'Failed with status code: ${response.statusCode}'));
